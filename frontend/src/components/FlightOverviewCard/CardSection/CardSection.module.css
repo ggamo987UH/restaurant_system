@@ -1,0 +1,21 @@
+.text {
+    padding-left: 8px;
+    padding-top: 8px;
+}
+
+.title {
+    font-size: 15px;
+    color: gray;
+    padding-right: 9px;
+
+}
+
+.response {
+    font-size: 18px;
+    color: #00468B;
+}
+
+.bottom-response {
+    display:block;
+    padding-top: 20px;
+}

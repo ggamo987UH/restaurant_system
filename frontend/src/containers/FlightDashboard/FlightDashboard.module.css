@@ -1,0 +1,23 @@
+.flight-dashboard-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-template-rows: repeat(3, 1fr);
+    padding: 15px;
+
+}
+
+.crew-container {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.passengers-container {
+    grid-row: 2/4;
+    grid-column: 1/4;
+}
+.flight-stats-container {
+    grid-row: 1;
+    grid-column: 3;
+}

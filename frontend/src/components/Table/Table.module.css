@@ -1,0 +1,13 @@
+.table {
+    height: 85%;
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
+    border-radius: 10px;
+    overflow: hidden;
+}

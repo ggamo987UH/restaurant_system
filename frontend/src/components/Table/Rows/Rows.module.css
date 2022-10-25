@@ -1,0 +1,13 @@
+.table-row, .table-last-row{
+    display: table-row;
+    /*height: 100%;*/
+}
+
+.table-row:nth-of-type(odd) {
+    background: #f6f6f6;
+}
+
+.table-last-row {
+    height: 100%;
+    color: white;
+}

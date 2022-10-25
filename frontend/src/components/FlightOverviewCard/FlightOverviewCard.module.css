@@ -1,0 +1,17 @@
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    grid-template-rows: repeat(3, 1fr);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    grid-column: 6;
+    grid-row: 2/3;
+}

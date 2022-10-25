@@ -1,0 +1,25 @@
+{
+  "name": "flight-app-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run kill-listen && nodemon -r esm --delay 500ms index.js",
+    "kill-listen": "kill -9 $(lsof -i :5000 -t) &>/dev/null | exit 0",
+    "dev-start": "npm run kill-listen && nodemon -r esm --delay 500ms index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "pg-format": "^1.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

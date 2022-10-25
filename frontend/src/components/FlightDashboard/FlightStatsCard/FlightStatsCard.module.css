@@ -1,0 +1,29 @@
+.title-container {
+    display:flex;
+    justify-content:space-between;
+    font-size: 25px;
+    font-weight: 420;
+    padding-bottom: 5px;
+}
+
+.flight-stats-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 73%;
+    width: 100%;
+    padding: 20px;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
+    border-radius: 10px;
+}
+
+.flight-stats-container div {
+    width: 50%;
+    /*background: green;*/
+}
+
+.bold {
+    font-weight: bold;
+}
