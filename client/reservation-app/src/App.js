@@ -1,11 +1,23 @@
 import React from 'react';
+import {
+	BrowserRouter as Router,
+	Route,
+	// Switch,
+  Routes,
+	Link
+  } from "react-router-dom";
 import Navbar from "./Components/navbar/Navbar";
+import bookings from "./Components/Pages/bookings";
 
 function App() {
 	return (
-		<React.Fragment>
-			<Navbar/>
-		</React.Fragment>
+		<Router>
+        <Routes>
+          <Route path="/bookings">
+            <bookings />
+          </Route>
+        </Routes>
+    </Router>
 	);
 }
 
