@@ -2,11 +2,11 @@ import React from 'react';
 import {
 	BrowserRouter as Router,
 	Route,
-  Routes,
-
+  Routes
   } from "react-router-dom";
 import Navbar from "./Components/navbar/Navbar";
-import bookings from "./Components/Pages/bookings";
+import Bookings from "./Components/Pages/bookings";
+import Calendar from "./Components/Pages/calendar";
 
 function App() {
 	return (
@@ -14,10 +14,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" />
-        <Route path="/bookings" element={bookings} />
+        <Route path="bookings" element={<Bookings />} />
+        <Route path="calendar" element={<Calendar />} />
       </Routes>
     </Router>
 	);
 }
-
 export default App;
