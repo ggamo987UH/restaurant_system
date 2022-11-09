@@ -7,13 +7,15 @@ import {
 import Navbar from "./Components/navbar/Navbar";
 import Bookings from "./Components/Pages/bookings";
 import Calendar from "./Components/Pages/calendar";
+import Register from "./Components/login/registration";
+
 
 function App() {
 	return (
 		<Router>
-      <Navbar />
+       <Navbar />
       <Routes>
-        <Route path="/" />
+        <Route path="/"  element = {<Register/>}      />
         <Route path="bookings" element={<Bookings />} />
         <Route path="calendar" element={<Calendar />} />
       </Routes>

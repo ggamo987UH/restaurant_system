@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql')
+const cors = require('cors');
+
+
+app.use(express.json());
+app.use(cors());
+
+
+
 
 const db = mysql.createConnection({
     host: 'restaurant-server.mysql.database.azure.com',
@@ -10,15 +18,18 @@ const db = mysql.createConnection({
 })
 
 
-app.get('/', (req, res) => {
-    const Insertsql = "SELECT * FROM registered_users";
 
-    db.query(Insertsql, (err, result) => {
-        if (err) throw err;
-        res.send(result);
-    });
 
+app.post('/register', (req, res) => {
+    db.query(
+        "INSERT INTO registered_users (username, password, phone, email, name, pref_payment_method) VALUES (?,?,?,?,?,?)",
+        [req.body.username, req.body.password, req.body.phone, req.body.email, req.body.name, req.body.payment],
+        (err, result) => {
+            console.log(err);
+        }
+    );
 });
+
 
 app.listen(3001, () => {
     console.log('Server running on port 3001');
