@@ -41,3 +41,10 @@ app.listen(3001, () => {
         console.log('Connected to database');
     })
 });
+
+app.get('/api/get', (req, res) => {
+    const sqlSelect = "SELECT * FROM restaurant_db_v1.registered_users;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
