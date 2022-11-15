@@ -16,6 +16,7 @@ function App() {
        <Navbar />
       <Routes>
         <Route path="/" element={<Bookings />} />
+        <Route path='bookings' element={<Bookings />} />
         <Route path="calendar" element={<Calendar />} />
       </Routes>
     </Router>

@@ -30,6 +30,23 @@ app.post('/register', (req, res) => {
     );
 });
 
+app.post('/searchBookings', (req, res) => {
+    db.query(
+        // check if the phone number is in the database and check if the date and time is in the database
+        "SELECT * FROM bookings WHERE phone = ? AND date = ? AND time = ?", 
+        [req.body.phone, req.body.date, req.body.time],
+        (err, result) => {
+            if (err) {
+                res.send({ err: err });
+            }
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                res.send({ message: "No bookings found" });
+            }
+        }
+    );
+});
 
 app.listen(3001, () => {
     console.log('Server running on port 3001');
