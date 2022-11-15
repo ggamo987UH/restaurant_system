@@ -7,7 +7,7 @@ import {
 import Navbar from "./Components/navbar/Navbar";
 import Bookings from "./Components/Pages/bookings";
 import Calendar from "./Components/Pages/calendar";
-import Register from "./Components/login/registration";
+import ModalOptions from './Components/login/modal/modal';
 
 
 function App() {
@@ -15,8 +15,7 @@ function App() {
 		<Router>
        <Navbar />
       <Routes>
-        <Route path="/"  element = {<Register/>}      />
-        <Route path="bookings" element={<Bookings />} />
+        <Route path="/" element={<Bookings />} />
         <Route path="calendar" element={<Calendar />} />
       </Routes>
     </Router>

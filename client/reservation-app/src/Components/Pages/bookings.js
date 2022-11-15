@@ -2,8 +2,9 @@ import React from "react";
 // import Axios from "axios";
 import "../../Styles/bookings.css";
 import { motion } from "framer-motion";
-
-function bookings() {
+import ModalOptions from "../login/modal/modal";
+//import Register from "../login/registration";
+function bookings()  {
 
   // const addBooking = () => {
   //   Axios.post("http://localhost:3001/bookings", {
@@ -18,6 +19,7 @@ function bookings() {
   // };
   return ( 
     <div className="divPadding">
+
       <motion.div exit={{ opacity: 0 }} initial={{ scale:.85, opacity: 0 }} animate={{ scale:1, opacity: 1 }} transition={{ type:"tween",stiffness: 260, damping: 20}}>
       <form className="formStyle">
         <h1 className="formTitle">FIND TABLE</h1>
@@ -35,6 +37,10 @@ function bookings() {
         <input type="date" className="formElement" name="partyDate" required/><br></br>
         {/* <button type="submit" className="buttonStyle" value="Submit" onClick={searchBooking}>Search</button> */}
         <button type="submit" className="buttonStyle" value="Submit">Search</button>
+        <h2 className="formTitle">
+          <ModalOptions />
+        </h2>
+
       </form>
       </motion.div>
     </div>
