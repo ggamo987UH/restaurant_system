@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql')
 const cors = require('cors');
+const { response } = require('express');
 
 
 app.use(express.json());
@@ -15,7 +16,7 @@ const db = mysql.createConnection({
     user: 'patron',
     password: 'software4351!',
     database: 'restaurant_db_v1'
-})
+});
 
 
 
@@ -30,22 +31,48 @@ app.post('/register', (req, res) => {
     );
 });
 
-app.post('/searchBookings', (req, res) => {
+app.post('/insertBookings', (req, res) => {
+    var partySizee = req.body.partySize;
+    var dateValue = req.body.partyDate;
+    var timeValue = req.body.partyTime;
+    var phoneValue = req.body.phone;
+    if (partySizee == 0 || dateValue == "" || timeValue == "" || phoneValue == "") {
+        return;
+    }
     db.query(
-        // check if the phone number is in the database and check if the date and time is in the database
-        "SELECT * FROM bookings WHERE phone = ? AND date = ? AND time = ?", 
-        [req.body.phone, req.body.date, req.body.time],
+        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone) VALUES (?,?,?,?)",
+        [partySizee, dateValue, timeValue, phoneValue],
         (err, result) => {
             if (err) {
-                res.send({ err: err });
-            }
-            if (result.length > 0) {
-                res.send(result);
+                // res.send({ message: "Error! Please try again." });
+                if(err.code === 'ER_DUP_ENTRY'){
+                    res.send({ message: "Time slot is unavailable!" });
+                }
+                else{
+                    res.send({ message: "Error! Please try again." });
+                }
             } else {
-                res.send({ message: "No bookings found" });
+                res.send({ message: "Booking Successfully Created!" });
             }
         }
     );
+    //update table_tracker table
+    // db.query(
+    //     $data = "SELECT * FROM table_tracker WHERE partyDate = ? AND partyTime = ?",
+    //     [dateValue, timeValue],
+    //     (err, result) => {
+    //     }
+    // );
+    // if ($data == null)
+    // {
+    //     db.query(
+    //         "INSERT INTO table_tracker (partyDate, partyTime) VALUES (?,?,?,?)",
+    //         [dateValue, timeValue, 5, 5, 5, 5],
+    //         (err, result) => {
+    //             if (err == null)
+    //             {
+    //                 console.log("Table Add Successful");
+    //             }
 });
 
 app.listen(3001, () => {
@@ -61,6 +88,7 @@ app.listen(3001, () => {
 
 app.get('/api/get', (req, res) => {
     const sqlSelect = "SELECT * FROM restaurant_db_v1.registered_users;";
+    // const sqlSelect = "SELECT * FROM restaurant_db_v1.reservation_info;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
