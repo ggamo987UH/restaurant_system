@@ -66,78 +66,123 @@ app.post('/insertBookings', (req, res) => {
                     var sixSeat = result[0].six_seat;
                     var fourSeat = result[0].four_seat;
                     var twoSeat = result[0].two_seat;
+                    var twoBeingUsed = 0;
+                    var fourBeingUsed = 0;
+                    var sixBeingUsed = 0;
+                    var eightBeingUsed = 0;
+                    var combined = "false";
 
                     if (partySizee <= 2 && twoSeat > 0) {
                         twoSeat = twoSeat - 1;
+                        twoBeingUsed = 1;
                     }
                     else if (partySizee <= 2 && fourSeat > 0) {
                         fourSeat = fourSeat - 1;
+                        fourBeingUsed = 1;
                     }
                     else if (partySizee <= 2 && sixSeat > 0) {
                         sixSeat = sixSeat - 1;
+                        sixBeingUsed = 1;
                     }
                     else if (partySizee <= 2 && eightSeat > 0) {
                         eightSeat = eightSeat - 1;
+                        eightBeingUsed = 1;
                     }
                     else if (partySizee <= 4 && fourSeat >= 1) {
                         fourSeat = fourSeat - 1;
+                        fourBeingUsed = 1;
                     }
                     else if (partySizee <= 4 && sixSeat >= 1) {
                         sixSeat = sixSeat - 1;
+                        sixBeingUsed = 1;
                     }
                     else if (partySizee <= 4 && eightSeat >= 1) {
                         eightSeat = eightSeat - 1;
+                        eightBeingUsed = 1;
                     }
                     else if (partySizee <= 4 && twoSeat >= 2) {
                         twoSeat = twoSeat - 2;
+                        twoBeingUsed = 2;
+                        combined = "true";
                     }
                     else if (partySizee <= 6 && sixSeat >= 1) {
                         sixSeat = sixSeat - 1;
+                        sixBeingUsed = 1;
                     }
                     else if (partySizee <= 6 && eightSeat >= 1) {
                         eightSeat = eightSeat - 1;
+                        eightBeingUsed = 1;
                     }
                     else if (partySizee <= 6 && fourSeat >= 2) {
                         fourSeat = fourSeat - 2;
+                        fourBeingUsed = 2;
+                        combined = "true";
                     }
                     else if (partySizee <= 6 && twoSeat >= 3) {
                         twoSeat = twoSeat - 3;
+                        twoBeingUsed = 3;
+                        combined = "true";
                     }
                     else if (partySizee <= 6 && twoSeat >= 1 && fourSeat >= 1) {
                         twoSeat = twoSeat - 1;
                         fourSeat = fourSeat - 1;
+                        twoBeingUsed = 1;
+                        fourBeingUsed = 1;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && eightSeat >= 1) {
                         eightSeat = eightSeat - 1;
+                        eightBeingUsed = 1;
                     }
                     else if (partySizee <= 8 && sixSeat >= 2) {
                         sixSeat = sixSeat - 2;
+                        sixBeingUsed = 2;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && fourSeat >= 2) {
                         fourSeat = fourSeat - 2;
+                        fourBeingUsed = 2;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && twoSeat >= 4) {
                         twoSeat = twoSeat - 4;
+                        twoBeingUsed = 4;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && twoSeat >= 2 && fourSeat >= 1) {
                         twoSeat = twoSeat - 2;
                         fourSeat = fourSeat - 1;
+                        twoBeingUsed = 2;
+                        fourBeingUsed = 1;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && twoSeat >= 1 && sixSeat >= 1) {
                         twoSeat = twoSeat - 1;
                         sixSeat = sixSeat - 1;
+                        twoBeingUsed = 1;
+                        sixBeingUsed = 1;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && twoSeat >= 3 && fourSeat >= 1) {
                         twoSeat = twoSeat - 3;
                         fourSeat = fourSeat - 1;
+                        twoBeingUsed = 3;
+                        fourBeingUsed = 1;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && twoSeat >= 3 && sixSeat >= 1) {
                         twoSeat = twoSeat - 3;
                         sixSeat = sixSeat - 1;
+                        twoBeingUsed = 3;
+                        sixBeingUsed = 1;
+                        combined = "true";
                     }
                     else if (partySizee <= 8 && sixSeat >= 1 && fourSeat >= 1) {
                         sixSeat = sixSeat - 1;
                         fourSeat = fourSeat - 1;
+                        sixBeingUsed = 1;
+                        fourBeingUsed = 1;
+                        combined = "true";
                     }
                     else {
                         console.log("No table available");
@@ -146,8 +191,10 @@ app.post('/insertBookings', (req, res) => {
                     }
 
                     db.query(
-                        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone) VALUES (?,?,?,?)",
-                        [partySizee, dateValue, timeValue, phoneValue],
+                        // "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone) VALUES (?,?,?,?)",
+                        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone, twoTable, fourTable, sixTable, eightTable, isCombined) VALUES (?,?,?,?,?,?,?,?,?)",
+                        // [partySizee, dateValue, timeValue, phoneValue],
+                        [partySizee, dateValue, timeValue, phoneValue, twoBeingUsed, fourBeingUsed, sixBeingUsed, eightBeingUsed, combined],
                         (err, result) => {
                             if (err) {
                                 res.send({ message: "Error! Please try again." });
