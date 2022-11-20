@@ -39,40 +39,137 @@ app.post('/insertBookings', (req, res) => {
     if (partySizee == 0 || dateValue == "" || timeValue == "" || phoneValue == "") {
         return;
     }
+
+    //update tabletracker table
     db.query(
-        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone) VALUES (?,?,?,?)",
-        [partySizee, dateValue, timeValue, phoneValue],
-        (err, result) => {
-            if (err) {
-                // res.send({ message: "Error! Please try again." });
-                if(err.code === 'ER_DUP_ENTRY'){
-                    res.send({ message: "Time slot is unavailable!" });
-                }
-                else{
-                    res.send({ message: "Error! Please try again." });
-                }
-            } else {
-                res.send({ message: "Booking Successfully Created!" });
+        "SELECT * FROM tabletracker WHERE date = ? AND time = ?",
+        [dateValue, timeValue],
+        (err, result, fields) => {
+            if (result == undefined || result.length == 0) {
+                console.log("INSERTING TABLETRACKER");
+                db.query(
+                    "INSERT INTO tabletracker (date, time, eight_seat, six_seat, four_seat, two_seat) VALUES (?,?,?,?,?,?)",
+                    [dateValue, timeValue, 1, 4, 5, 6],
+                    (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                    }
+                );
             }
+
+            db.query(
+                "SELECT * FROM tabletracker WHERE date = ? AND time = ?",
+                [dateValue, timeValue],
+                (err, result, fields) => {
+                    var eightSeat = result[0].eight_seat;
+                    var sixSeat = result[0].six_seat;
+                    var fourSeat = result[0].four_seat;
+                    var twoSeat = result[0].two_seat;
+
+                    if (partySizee <= 2 && twoSeat > 0) {
+                        twoSeat = twoSeat - 1;
+                    }
+                    else if (partySizee <= 2 && fourSeat > 0) {
+                        fourSeat = fourSeat - 1;
+                    }
+                    else if (partySizee <= 2 && sixSeat > 0) {
+                        sixSeat = sixSeat - 1;
+                    }
+                    else if (partySizee <= 2 && eightSeat > 0) {
+                        eightSeat = eightSeat - 1;
+                    }
+                    else if (partySizee <= 4 && fourSeat >= 1) {
+                        fourSeat = fourSeat - 1;
+                    }
+                    else if (partySizee <= 4 && sixSeat >= 1) {
+                        sixSeat = sixSeat - 1;
+                    }
+                    else if (partySizee <= 4 && eightSeat >= 1) {
+                        eightSeat = eightSeat - 1;
+                    }
+                    else if (partySizee <= 4 && twoSeat >= 2) {
+                        twoSeat = twoSeat - 2;
+                    }
+                    else if (partySizee <= 6 && sixSeat >= 1) {
+                        sixSeat = sixSeat - 1;
+                    }
+                    else if (partySizee <= 6 && eightSeat >= 1) {
+                        eightSeat = eightSeat - 1;
+                    }
+                    else if (partySizee <= 6 && fourSeat >= 2) {
+                        fourSeat = fourSeat - 2;
+                    }
+                    else if (partySizee <= 6 && twoSeat >= 3) {
+                        twoSeat = twoSeat - 3;
+                    }
+                    else if (partySizee <= 6 && twoSeat >= 1 && fourSeat >= 1) {
+                        twoSeat = twoSeat - 1;
+                        fourSeat = fourSeat - 1;
+                    }
+                    else if (partySizee <= 8 && eightSeat >= 1) {
+                        eightSeat = eightSeat - 1;
+                    }
+                    else if (partySizee <= 8 && sixSeat >= 2) {
+                        sixSeat = sixSeat - 2;
+                    }
+                    else if (partySizee <= 8 && fourSeat >= 2) {
+                        fourSeat = fourSeat - 2;
+                    }
+                    else if (partySizee <= 8 && twoSeat >= 4) {
+                        twoSeat = twoSeat - 4;
+                    }
+                    else if (partySizee <= 8 && twoSeat >= 2 && fourSeat >= 1) {
+                        twoSeat = twoSeat - 2;
+                        fourSeat = fourSeat - 1;
+                    }
+                    else if (partySizee <= 8 && twoSeat >= 1 && sixSeat >= 1) {
+                        twoSeat = twoSeat - 1;
+                        sixSeat = sixSeat - 1;
+                    }
+                    else if (partySizee <= 8 && twoSeat >= 3 && fourSeat >= 1) {
+                        twoSeat = twoSeat - 3;
+                        fourSeat = fourSeat - 1;
+                    }
+                    else if (partySizee <= 8 && twoSeat >= 3 && sixSeat >= 1) {
+                        twoSeat = twoSeat - 3;
+                        sixSeat = sixSeat - 1;
+                    }
+                    else if (partySizee <= 8 && sixSeat >= 1 && fourSeat >= 1) {
+                        sixSeat = sixSeat - 1;
+                        fourSeat = fourSeat - 1;
+                    }
+                    else {
+                        console.log("No table available");
+                        res.send({ message: "No more tables available for that time!" });
+                        return;
+                    }
+
+                    db.query(
+                        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone) VALUES (?,?,?,?)",
+                        [partySizee, dateValue, timeValue, phoneValue],
+                        (err, result) => {
+                            if (err) {
+                                res.send({ message: "Error! Please try again." });
+                            } else {
+                                res.send({ message: "Booking Successfully Created!" });
+                            }
+                        }
+                    );
+
+                    db.query(
+                        "UPDATE tabletracker SET eight_seat = ?, six_seat = ?, four_seat = ?, two_seat = ? WHERE date = ? AND time = ?",
+                        [eightSeat, sixSeat, fourSeat, twoSeat, dateValue, timeValue],
+                        (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        }
+                    );
+                }
+            )
         }
     );
-    //update table_tracker table
-    // db.query(
-    //     $data = "SELECT * FROM table_tracker WHERE partyDate = ? AND partyTime = ?",
-    //     [dateValue, timeValue],
-    //     (err, result) => {
-    //     }
-    // );
-    // if ($data == null)
-    // {
-    //     db.query(
-    //         "INSERT INTO table_tracker (partyDate, partyTime) VALUES (?,?,?,?)",
-    //         [dateValue, timeValue, 5, 5, 5, 5],
-    //         (err, result) => {
-    //             if (err == null)
-    //             {
-    //                 console.log("Table Add Successful");
-    //             }
 });
 
 app.listen(3001, () => {
