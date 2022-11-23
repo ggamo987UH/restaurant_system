@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import "./modal.css";
 import Options from "./options";
 
-
 const ModalOptions = () => {
     const [show, setShow] = React.useState(false);
     

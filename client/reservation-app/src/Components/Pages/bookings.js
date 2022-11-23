@@ -15,6 +15,13 @@ function Bookings()  {
   const [dateD, setPartyDate] = useState('')
 
   const insertBookings = () => {
+    Axios.post("http://localhost:3001/guests", {
+      phone: phoneD,
+    }).then((response) => {
+      console.log(response);
+    });
+
+
     Axios.post('http://localhost:3001/insertBookings', {
       name: nameD,
       phone: phoneD,
@@ -40,7 +47,7 @@ function Bookings()  {
         <label for="email">Email</label><br></br>
         <input type="text" className="formElement" name="email" placeholder="..." onChange={(e) => setEmail(e.target.value)} required></input><br></br>
         <label for="partySize">Party Size: </label>
-        <input type="number" className="formElement" name="partySize" max="8" min="0" defaultValue="1" onChange={(e) => setPartySize(e.target.value)} required/><br></br>
+        <input type="number" className="formElement" name="partySize" max="8" min="1" defaultValue="0" onChange={(e) => setPartySize(e.target.value)} required/><br></br>
         <label for="partyDate">Party Date: </label>
         {/* <input type="date" className="formElement" name="partyDate" onChange={(e) => setPartyDate(e.target.value)} required/><br></br> */}
         <input type="date" className="formElement" name="partyDate" onChange={(e) => setPartyDate(e.target.value)} min="2022-11-19" required/><br></br>

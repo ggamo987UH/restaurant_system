@@ -31,6 +31,28 @@ app.post('/register', (req, res) => {
     );
 });
 
+
+
+
+app.post('/guests', (req, res) => { 
+    var val = req.body.phone;
+    db.query(
+        "INSERT INTO guest_users (phone) VALUES (?)",
+        [val],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send('Guest inserted');
+            }
+        }
+    );
+});
+
+
+
+
+
 app.post('/insertBookings', (req, res) => {
     var partySizee = req.body.partySize;
     var dateValue = req.body.partyDate;
@@ -40,7 +62,7 @@ app.post('/insertBookings', (req, res) => {
         return;
     }
 
-    //update tabletracker table
+
     db.query(
         "SELECT * FROM tabletracker WHERE date = ? AND time = ?",
         [dateValue, timeValue],
@@ -233,6 +255,13 @@ app.listen(3001, () => {
 app.get('/api/get', (req, res) => {
     const sqlSelect = "SELECT * FROM restaurant_db_v1.registered_users;";
     // const sqlSelect = "SELECT * FROM restaurant_db_v1.reservation_info;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get('/api/get_users', (req, res) => {
+    const sqlSelect = "SELECT * FROM restaurant_db_v1.guest_users;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });

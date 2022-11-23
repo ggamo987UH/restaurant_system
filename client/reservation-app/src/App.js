@@ -7,7 +7,7 @@ import {
 import Navbar from "./Components/navbar/Navbar";
 import Bookings from "./Components/Pages/bookings";
 import Calendar from "./Components/Pages/calendar";
-import ModalOptions from './Components/login/modal/modal';
+
 
 
 function App() {
