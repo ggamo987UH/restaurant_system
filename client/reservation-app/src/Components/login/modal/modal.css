@@ -15,10 +15,16 @@
 
 
 .modal-content {
-    background-color: #fefefe;
+    /* background-color: #fefefe; */
+    background-color: #8f968a;
+    /* background-color: #112920;
+	  color: #d8dbd7; */
+
+    box-shadow: 0px 0px 50px black;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    /* border: 1px solid #888; */
+    border-radius: 20px;
     width: 80%;
 }
 

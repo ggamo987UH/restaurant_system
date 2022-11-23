@@ -35,9 +35,11 @@ function Bookings() {
   };
 
   return (
-    <div class="container">
+  <div className="bookings">
+  <div className="bookingsBackground">
+  <motion.div exit={{ opacity: 0 }} initial={{ scale: .85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "tween", stiffness: 260, damping: 20 }}>
+    <div className="container">
       <div class="title">Find Table</div>
-      <motion.div exit={{ opacity: 0 }} initial={{ scale: .85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "tween", stiffness: 260, damping: 20 }}>
         <form action="#">
           <div class="user__details">
             <div class="input__box">
@@ -58,11 +60,11 @@ function Bookings() {
             </div>
             <div class="input__box">
               <span class="details">Party Date</span>
-              <input type="date" className="formElement" name="partyDate" onChange={(e) => setPartyDate(e.target.value)} min="2022-11-19" required />
+              <input type="date" className="formElement" name="partyDate" onChange={(e) => setPartyDate(e.target.value)} min="2022-11-23" required />
             </div>
             <div class="input__box">
               <span class="details">Party Time</span>
-              <input type="time" className="formElement" name="partyTime" step="3600" onChange={(e) => setPartyTime(e.target.value)} required />
+              <input type="time" className="formElement" name="partyTime" step="3600" min="11:00" max="22:00" onChange={(e) => setPartyTime(e.target.value)} required />
             </div>
 
           </div>
@@ -86,8 +88,10 @@ function Bookings() {
 
           <ModalOptions />
         </form>
-      </motion.div>
     </div>
+  </motion.div>
+  </div>
+  </div>
   );
 }
 export default Bookings;

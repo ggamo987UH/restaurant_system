@@ -32,6 +32,9 @@ body {
   background: #fff;
   padding: 25px 30px;
   border-radius: 5px;
+  background-color: #112920;
+  color: #d8dbd7;
+  /* background-color: #8f968a; */
 }
 .container .title {
   font-size: 25px;
