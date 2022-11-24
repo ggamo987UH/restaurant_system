@@ -239,6 +239,19 @@ app.post('/insertBookings', (req, res) => {
             )
         }
     );
+})
+
+app.get("/api/tabletracker/:startDate/:endDate", (req, res) => {
+    let startDate = req.params.startDate;
+    let endDate = req.params.endDate;
+
+    db.query(
+        "SELECT * FROM tabletracker WHERE `date` between ? AND ?",
+        [startDate, endDate],
+        (err, result) => {
+            res.send(result);
+        }
+    );
 });
 
 app.listen(3001, () => {
