@@ -72,7 +72,7 @@ function Bookings() {
             <input type="radio" name="gender" id="dot-1" />
             <input type="radio" name="gender" id="dot-2" />
            
-            <span class="gender__title">Status</span>
+            <span class="gender__title">Continue as: </span>
             <div class="category">
               <label for="dot-1">
                 <span class="dot one"></span>

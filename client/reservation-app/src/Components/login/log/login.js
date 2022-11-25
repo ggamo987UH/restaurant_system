@@ -11,11 +11,10 @@ const Login = () => {
             username: username,
             password: password,
         }).then((response) => {
-            if (!response.data.auth) {
+            if (response.data.message) {
                 setLoginStatus(response.data.message);
             } else {
-                localStorage.setItem("token", response.data.token);
-                setLoginStatus(response.data.message);
+                setLoginStatus('Login successful');
             }
         });
     };
@@ -42,6 +41,7 @@ const Login = () => {
             <button onClick={login}>Login</button>
             <h1>{loginStatus}</h1>
         </div>
+
     );
 };
 
