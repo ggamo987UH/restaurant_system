@@ -55,6 +55,32 @@ app.post('/register', (req, res) => {
             console.log(err);
         }
     );
+    const username = req.body.username;
+    const fullname = req.body.name;
+    const address1 = req.body.address1;
+    const address2 = req.body.address2;
+    const city = req.body.city;
+    const state = req.body.state;
+    const zip = req.body.zip;
+    db.query(
+        "INSERT INTO bill_address (username, full_name, address1, address2, city, state, zip) VALUES (?,?,?,?,?,?,?)",
+        [username, fullname, address1, address2, city, state, zip],
+        (err, result) => {
+            if (err) {
+                res.send({err: err});
+            }
+            if (result) {
+                console.log(result);
+                console.log("Address added!");
+                res.send(result);
+            } else {
+                console.log("Error");
+            }
+        }
+    );
+
+
+
 });
 
 
