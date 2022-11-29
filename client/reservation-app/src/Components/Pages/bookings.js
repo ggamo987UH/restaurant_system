@@ -13,8 +13,24 @@ function Bookings() {
   const [partyD, setPartySize] = useState('')
   const [timeD, setPartyTime] = useState('')
   const [dateD, setPartyDate] = useState('')
+  const [creditD, setCreditCard] = useState('')
 
   const insertBookings = () => {
+    var dayOfWeek = new Date(dateD).getDay();
+    var datevar = dateD;
+    var dateNoYear = datevar.slice(5, 10)
+
+    if (creditD.length === 0 || creditD === null) {
+      if (dayOfWeek === 5 || dayOfWeek === 6) {
+        alert("ERROR! Credit Card is required for weekend reservations.")
+        return
+      }
+      if (dateNoYear === '01-01' || dateNoYear === '12-31' || dateNoYear === '12-25' || dateNoYear === '12-24' || dateNoYear === '07-04' || dateNoYear === '11-24' || dateNoYear === '05-29') {
+        alert('ERROR! Credit Card is required for holiday reservations.')
+        return
+      }
+    }
+
     Axios.post("http://localhost:3001/guests", {
       phone: phoneD,
     }).then((response) => {
@@ -26,6 +42,7 @@ function Bookings() {
       name: nameD,
       phone: phoneD,
       email: emailD,
+      credit: creditD,
       partySize: partyD,
       partyTime: timeD,
       partyDate: dateD
@@ -39,7 +56,8 @@ function Bookings() {
   <div className="bookingsBackground">
   <motion.div exit={{ opacity: 0 }} initial={{ scale: .85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "tween", stiffness: 260, damping: 20 }}>
     <div className="container">
-      <div class="title">Find Table</div>
+      <div class="title">Book Table</div>
+      <div class="content">Disclaimer: There will be a $10 no-show fee if you do not show up for the reservations placed on holidays or weekends</div>
         <form action="#">
           <div class="user__details">
             <div class="input__box">
@@ -66,7 +84,10 @@ function Bookings() {
               <span class="details">Party Time</span>
               <input type="time" className="formElement" name="partyTime" step="3600" min="11:00" max="22:00" onChange={(e) => setPartyTime(e.target.value)} required />
             </div>
-
+            <div class="input__box">
+              <span class="details">Credit Card Number:</span>
+              <input type="text" className="formElement" name="creditCard" placeholder="..." maxLength={16} onChange={(e) => setCreditCard(e.target.value)} />
+            </div>
           </div>
           <div class="gender__details">
             <input type="radio" name="gender" id="dot-1" />

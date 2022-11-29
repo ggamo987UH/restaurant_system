@@ -109,6 +109,7 @@ app.post('/insertBookings', (req, res) => {
     var partySizee = req.body.partySize;
     var dateValue = req.body.partyDate;
     var timeValue = req.body.partyTime;
+    var creditCard = req.body.credit;
     var phoneValue = req.body.phone;
     if (partySizee == 0 || dateValue == "" || timeValue == "" || phoneValue == "") {
         return;
@@ -266,9 +267,9 @@ app.post('/insertBookings', (req, res) => {
 
                     db.query(
                         // "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone) VALUES (?,?,?,?)",
-                        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone, twoTable, fourTable, sixTable, eightTable, isCombined) VALUES (?,?,?,?,?,?,?,?,?)",
+                        "INSERT INTO reservationinfo (partySize, partyDate, partyTime, phone, creditCard, twoTable, fourTable, sixTable, eightTable, isCombined) VALUES (?,?,?,?,?,?,?,?,?,?)",
                         // [partySizee, dateValue, timeValue, phoneValue],
-                        [partySizee, dateValue, timeValue, phoneValue, twoBeingUsed, fourBeingUsed, sixBeingUsed, eightBeingUsed, combined],
+                        [partySizee, dateValue, timeValue, phoneValue, creditCard, twoBeingUsed, fourBeingUsed, sixBeingUsed, eightBeingUsed, combined],
                         (err, result) => {
                             if (err) {
                                 res.send({ message: "Error! Please try again." });

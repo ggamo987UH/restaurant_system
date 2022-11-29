@@ -26,6 +26,11 @@ body {
 */
 
 /* container and form */
+.content {
+  display : flex;
+  text-align: left;
+  font-size: 10px;
+}
 .container {
   max-width: 700px;
   width: 100%;
