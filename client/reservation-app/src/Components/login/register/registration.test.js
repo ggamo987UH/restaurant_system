@@ -1,9 +1,9 @@
-import Options from "./options";
+import Register from "./registration";
 import { render, screen } from "@testing-library/react";
 
-describe("Options", () => {
+describe("Register", () => {
     it("renders without crashing", () => {
-        render(<Options />);
+        render(<Register />);
     });
     }
 );

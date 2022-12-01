@@ -1,9 +1,9 @@
-import Options from "./options";
+import Bookings from "./bookings";
 import { render, screen } from "@testing-library/react";
 
-describe("Options", () => {
+describe("Bookings", () => {
     it("renders without crashing", () => {
-        render(<Options />);
+        render(<Bookings />);
     });
     }
 );

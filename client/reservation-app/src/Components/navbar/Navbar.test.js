@@ -1,9 +1,9 @@
-import Options from "./options";
+import Navbar from "./Navbar";
 import { render, screen } from "@testing-library/react";
 
-describe("Options", () => {
+describe("Navbar", () => {
     it("renders without crashing", () => {
-        render(<Options />);
+        render(<Navbar />);
     });
     }
 );

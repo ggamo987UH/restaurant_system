@@ -1,8 +1,9 @@
-import ModalOptions from "./modal";
+import ModalOptions from "./modal"; 
+import {render} from "@testing-library/react";
 
 describe("ModalOptions", () => {
     it("renders without crashing", () => {
-        const div = document.createElement("div");
-      
+        render(<ModalOptions />);
     });
-});
+    }
+);
