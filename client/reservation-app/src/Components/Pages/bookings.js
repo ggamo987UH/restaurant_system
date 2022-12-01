@@ -69,6 +69,13 @@ function Bookings() {
   useEffect(() => {
     console.log(isBookingClicked);
     console.log(userType);
+    localStorage.setItem("name", nameD);
+    localStorage.setItem("phone", phoneD);
+    localStorage.setItem("email", emailD);
+    localStorage.setItem("partySize", partyD);
+    localStorage.setItem("partyTime", timeD);
+    localStorage.setItem("partyDate", dateD);
+    localStorage.setItem("creditCard", creditD);
   }, [isBookingClicked]);
 
   return (
@@ -202,7 +209,7 @@ function Bookings() {
                   show={true}
                   setIsBookingClicked={setIsBookingClicked}
                 />
-              )}
+              ) }
             </form>
           </div>
         </motion.div>
