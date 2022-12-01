@@ -112,7 +112,7 @@ function Bookings() {
                     type="number"
                     className="formElement"
                     name="partySize"
-                    max="8"
+                    max="16"
                     min="1"
                     defaultValue="0"
                     onChange={(e) => setPartySize(e.target.value)}
@@ -137,6 +137,7 @@ function Bookings() {
                     className="formElement"
                     name="phone"
                     placeholder="..."
+                    maxLength={10}
                     onChange={(e) => setPhone(e.target.value)}
                     required
                   />
